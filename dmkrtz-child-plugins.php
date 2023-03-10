@@ -3,22 +3,22 @@
  * Plugin Name:       ! dmkrtz Child Plugins
  * GitHub Plugin URI: dmkrtz/dmkrtz-child-plugins
  * Description:       By activating this plugin you will get a fatal error message, but the output tells you what has been done. Usually it backs up existing files from the original plugin, and replaces them with the ones inside your child plugins. Click the activate button if you've done changes, or when a plugin was updated to get the modified version back.
- * Version:           0.0.3
+ * Version:           0.0.4
  * Author:            dmkrtz
  * Author URI:        https://dmkrtz.de/
  */
  
  /*
 	So the idea is to be able to have "child plugins" with this plugin.
-	You have to build folders in this very plugin folder configured like this:
+	You have to build folders in your WP plugin folder configured like this:
 	
 	Say you want to update the GiveWP plugin its Donor Wall Shortcode (that's why I made this plugin).
-	So in here (plugins/dmkrtz-child-plugins/) you have to create a folder "give-child" ("give" is the plugin name, "-child" the indicator).
+	So in "plugins/" you have to create a folder "give-child" ("give" is the plugin name, "-child" the indicator).
 	
 	The shortcode-donor-wall.php is located in "give/templates/shortcode-donor-wall.php".
 	
 	So our ultimate path will be:
-	"plugins/dmkrtz-child-plugins/give-child/templates/shortcode-donor-wall.php"
+	"plugins/give-child/templates/shortcode-donor-wall.php"
 	
 	As of version 0.0.1, the "child version" will be applied when you activate this plugin and return a fatal error
 	I will think about a different approach very soon but this seems to be basic enough to work as of now.
@@ -53,7 +53,7 @@ function full_copy($source, $dest, $plugindir, $backupdir) {
 			// check if file actually exists in source
 			if(file_exists($source)) {
 				if(copy($source, $dest))
-					$result[] = str_replace("$plugindir/", "plugins/", "Backed up \"$source\".");
+					$result[] = str_replace("$plugindir/", "", "Backed up \"$source\".");
 			}
 		}
 	}
@@ -63,7 +63,7 @@ function full_copy($source, $dest, $plugindir, $backupdir) {
 
 function dmkrtz_child_plugins_activate() {
 	/* activation code here */
-	$dir = __DIR__;
+	$dir = WP_PLUGIN_DIR;
 	$backupdir = "$dir/backup";
 	
 	if(!file_exists($backupdir))
@@ -113,7 +113,7 @@ function dmkrtz_child_plugins_activate() {
 					$msg = "<span style='font-weight: bold; color: red;'>NOT successful!</span>";
 				}
 				
-				$json[] = "Replacing \"plugins/{$pluginname}{$file}\" with \"{$p}{$file}\" $msg";
+				$json[] = "Replacing \"{$pluginname}{$file}\" with \"{$p}{$file}\" $msg";
 			}
 		}
 	}
