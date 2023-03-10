@@ -78,6 +78,7 @@ function dmkrtz_child_plugins_activate() {
 	
 	// else we continue here
 	// get all child files
+	$childlist = array();
 	foreach($childs as $p) {
 		$childname = basename($p);
 		$pluginname = str_replace("-child", "", $childname);
@@ -122,7 +123,7 @@ function dmkrtz_child_plugins_activate() {
 	if(count($json)>0) {
 		echo "<body style='margin: 0;'><div style='font-size: 13px; font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen-Sans,Ubuntu,Cantarell,\"Helvetica Neue\",sans-serif;'>";
 			echo "<b>But it still did something:</b></br>";
-			if($childlist) {
+			if(count($childlist)>0) {
 				echo "Found childs: " . implode(", ", $childlist) . "</br>";
 			}
 			foreach($json as $j) {
