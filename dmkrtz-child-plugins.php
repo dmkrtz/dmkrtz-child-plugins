@@ -3,22 +3,22 @@
  * Plugin Name:       ! dmkrtz Child Plugins
  * GitHub Plugin URI: dmkrtz/dmkrtz-child-plugins
  * Description:       By activating this plugin you will get a fatal error message, but the output tells you what has been done. Usually it backs up existing files from the original plugin, and replaces them with the ones inside your child plugins. Click the activate button if you've done changes, or when a plugin was updated to get the modified version back.
- * Version:           0.0.4
+ * Version:           0.0.5
  * Author:            dmkrtz
  * Author URI:        https://dmkrtz.de/
  */
  
  /*
 	So the idea is to be able to have "child plugins" with this plugin.
-	You have to build folders in your WP plugin folder configured like this:
+	You have to build folders in this very plugin folder configured like this:
 	
 	Say you want to update the GiveWP plugin its Donor Wall Shortcode (that's why I made this plugin).
-	So in "plugins/" you have to create a folder "give-child" ("give" is the plugin name, "-child" the indicator).
+	So in here (plugins/dmkrtz-child-plugins/) you have to create a folder "give-child" ("give" is the plugin name, "-child" the indicator).
 	
 	The shortcode-donor-wall.php is located in "give/templates/shortcode-donor-wall.php".
 	
 	So our ultimate path will be:
-	"plugins/give-child/templates/shortcode-donor-wall.php"
+	"plugins/dmkrtz-child-plugins/give-child/templates/shortcode-donor-wall.php"
 	
 	As of version 0.0.1, the "child version" will be applied when you activate this plugin and return a fatal error
 	I will think about a different approach very soon but this seems to be basic enough to work as of now.
@@ -81,6 +81,7 @@ function dmkrtz_child_plugins_activate() {
 	foreach($childs as $p) {
 		$childname = basename($p);
 		$pluginname = str_replace("-child", "", $childname);
+		$childlist[] = $pluginname;
 		
 		// get all single files
 		foreach(glob("$p/{,*/,*/*/,*/*/*/}*.*", GLOB_BRACE) as $f) {
@@ -121,7 +122,9 @@ function dmkrtz_child_plugins_activate() {
 	if(count($json)>0) {
 		echo "<body style='margin: 0;'><div style='font-size: 13px; font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen-Sans,Ubuntu,Cantarell,\"Helvetica Neue\",sans-serif;'>";
 			echo "<b>But it still did something:</b></br>";
-			
+			if($childlist) {
+				echo "Found childs: " . implode(", ", $childlist) . "</br>";
+			}
 			foreach($json as $j) {
 				echo $j . "</br>";
 			}
