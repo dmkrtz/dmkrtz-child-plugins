@@ -2,8 +2,8 @@
 /*
  * Plugin Name:       ! dmkrtz Child Plugins
  * GitHub Plugin URI: dmkrtz/dmkrtz-child-plugins
- * Description:       By activating this plugin you will get a <b>fatal error</b> message, but the output tells you what has been done. Usually it backs up existing files from the original plugin, and replaces them with the ones inside your child plugins. Click the activate button if you've done changes, or when a plugin was updated to get the modified version back.
- * Version:           0.0.2
+ * Description:       By activating this plugin you will get a fatal error message, but the output tells you what has been done. Usually it backs up existing files from the original plugin, and replaces them with the ones inside your child plugins. Click the activate button if you've done changes, or when a plugin was updated to get the modified version back.
+ * Version:           0.0.3
  * Author:            dmkrtz
  * Author URI:        https://dmkrtz.de/
  */
